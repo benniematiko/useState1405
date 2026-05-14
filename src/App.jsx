@@ -4,6 +4,15 @@ import './App.css'
 import React, { useState } from 'react';
 import { Plus, Minus, Trash2 } from 'lucide-react';
 
+
+const faqData = [
+  { id: 1, question: "What is your return policy?", answer: "You can return any item within 30 days of purchase." },
+  { id: 2, question: "How do I track my order?", answer: "Once shipped, you'll receive an email with a tracking link." },
+  { id: 3, question: "Do you offer international shipping?", answer: "Yes, we ship to over 50 countries worldwide." },
+  { id: 4, question: "Can I change my order after placing it?", answer: "Orders can be modified within 1 hour of placement." },
+  { id: 5, question: "Is my payment information secure?", answer: "We use industry-standard SSL encryption for all transactions." }
+];
+
 function App() {
 
   const [ myName, setMyName] = useState("Ben")
@@ -14,6 +23,8 @@ function App() {
    <ProductCard />
 
    <LightSwitch />
+
+   <Accordion />
   </div>
   )
 }
@@ -100,6 +111,58 @@ function LightSwitch() {
   );
 }
 
+
+
+
+
+
+
+
+
+
+
+function Accordion() {
+  // activeId holds the ID of the currently expanded item (null means all closed)
+  const [activeId, setActiveId] = useState(null);
+
+  const toggleAccordion = (id) => {
+    // If the clicked item is already active, close it. Otherwise, open the new one.
+    setActiveId(activeId === id ? null : id);
+  };
+
+  return (
+    <div style={{ maxWidth: '500px', margin: '20px auto', fontFamily: 'sans-serif' }}>
+      <h2>Frequently Asked Questions</h2>
+      {faqData.map((item) => (
+        <div key={item.id} style={{ borderBottom: '1px solid #ddd', marginBottom: '10px' }}>
+          <button
+            onClick={() => toggleAccordion(item.id)}
+            style={{
+              width: '100%',
+              textAlign: 'left',
+              padding: '15px',
+              background: '#f9f9f9',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              display: 'flex',
+              justifyContent: 'space-between'
+            }}
+          >
+            {item.question}
+            <span>{activeId === item.id ? '−' : '+'}</span>
+          </button>
+          
+          {activeId === item.id && (
+            <div style={{ padding: '15px', color: '#555', lineHeight: '1.5' }}>
+              {item.answer}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 
 export default App
