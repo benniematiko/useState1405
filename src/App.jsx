@@ -12,6 +12,8 @@ function App() {
   <div>
      <div><h1>Hello, {myName}!</h1></div>
    <ProductCard />
+
+   <LightSwitch />
   </div>
   )
 }
@@ -79,6 +81,24 @@ const ProductCard = () => {
     </div>
   );
 };
+
+
+
+
+function LightSwitch() {
+  // 1. Initial state is 'false' (light is off)
+  const [isOn, setIsOn] = useState(false);
+
+  return (
+    <div>
+      <p>The light is {isOn ? "ON 💡" : "OFF 🌑"}</p>
+      {/* 2. When clicked, we flip the boolean */}
+      <button onClick={() => setIsOn(!isOn)}>
+        Switch
+      </button>
+    </div>
+  );
+}
 
 
 
